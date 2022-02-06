@@ -108,9 +108,9 @@ const AQIList = ({ data, onPastAQIView }) => {
     {
       title: "",
       render: (text, record) => (
-        <a href="javascript:;" onClick={() => openHistoryModel(record)}>
+        <div className="link" onClick={() => openHistoryModel(record)}>
           View past AQI
-        </a>
+        </div>
       ),
     },
   ];

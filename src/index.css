@@ -10,3 +10,8 @@
   margin: "24px 16px";
   height: "85vh";
 }
+
+.link {
+  color: #1890ff;
+  cursor: pointer;
+}
