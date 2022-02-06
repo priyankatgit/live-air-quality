@@ -1,7 +1,7 @@
 import { Row, Col } from "antd";
 import { useState, useEffect } from "react";
 import aqiDataEmitter from "../service/AQIDataService";
-import AQIListNew from "./AQIList";
+import AQIList from "./AQIList";
 import AQIChart from "./AQIChart";
 
 const AQI = () => {
@@ -23,15 +23,13 @@ const AQI = () => {
 
   let [aqiData, setAqiData] = useState([]);
   let [historicalData, setHistoricalData] = useState([]);
-
   useEffect(() => {
     let aqiDataDict = {};
-
-    console.log("🚀 ~ file: AQIList.js ~ line 80 ~ useEffect ~ useEffect");
 
     aqiDataEmitter((data) => {
       data.forEach(({ city, aqi }) => {
         aqiDataDict[city] = {
+          key: city,
           city,
           aqi: +aqi.toFixed(2),
           updatedOn: Number(new Date()),
@@ -39,16 +37,11 @@ const AQI = () => {
         };
       });
 
-      aqiData = Object.values(aqiDataDict);
-      //   console.log("historicalData", historicalData);
-      setAqiData(aqiData);
+      const newAQIData = Object.values(aqiDataDict);
+      setAqiData(newAQIData);
 
       //TODO: Check performance for merging historical data
-      // Added temporary max historical data merging limit to keep performance manageable.
-      if (historicalData.length <= 1000) {
-        historicalData = [...historicalData, ...aqiData];
-        setHistoricalData(historicalData);
-      }
+      setHistoricalData((prevState) => [...prevState, ...newAQIData]);
     });
   }, []);
 
@@ -56,7 +49,7 @@ const AQI = () => {
     <>
       <Row gutter={16}>
         <Col span={12}>
-          <AQIListNew data={aqiData} />
+          <AQIList data={aqiData} />
         </Col>
         <Col span={12} style={{ backgroundColor: "#fff" }}>
           <AQIChart data={historicalData} />
