@@ -104,7 +104,7 @@ export default function aqiDataEmitter(callback) {
   webSocket = new WebSocket("wss://city-ws.herokuapp.com/");
 
   /*
-     Sometimes connection starts throwing error "Insufficient resource". It could be due to some-kind of throttling.
+     After certain time connection starts throwing an error "Insufficient resource". It could be due to some-kind of throttling.
      fakeEmitter function is used as workaround which looks like live updates.
   */
   webSocket.onerror = (error) => {

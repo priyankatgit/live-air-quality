@@ -5,6 +5,9 @@ import AQIList from "./AQIList";
 import AQIChart from "./AQIChart";
 
 const AQI = () => {
+  let [aqiData, setAqiData] = useState([]);
+  let [historicalData, setHistoricalData] = useState([]);
+
   const getAQICategory = (aqi) => {
     if (aqi >= 0 && aqi <= 50) {
       return { color: "green", colorName: "#389e0d", name: "Good" };
@@ -21,8 +24,12 @@ const AQI = () => {
     }
   };
 
-  let [aqiData, setAqiData] = useState([]);
-  let [historicalData, setHistoricalData] = useState([]);
+  const getAQIDataByCity = (city) => {
+    let data = historicalData.filter((item) => item.city === city);
+    data = data.sort((a, b) => a.updatedOn - b.updatedOn);
+    return data;
+  };
+
   useEffect(() => {
     let aqiDataDict = {};
 
@@ -33,6 +40,7 @@ const AQI = () => {
           city,
           aqi: +aqi.toFixed(2),
           updatedOn: Number(new Date()),
+          //tempDate: moment(new Date()).format("mm:ss"),
           category: getAQICategory(+aqi.toFixed(0)),
         };
       });
@@ -49,7 +57,7 @@ const AQI = () => {
     <>
       <Row gutter={16}>
         <Col span={12}>
-          <AQIList data={aqiData} />
+          <AQIList data={aqiData} onPastAQIView={getAQIDataByCity} />
         </Col>
         <Col span={12} style={{ backgroundColor: "#fff" }}>
           <AQIChart data={historicalData} />
