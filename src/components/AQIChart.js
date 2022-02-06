@@ -10,7 +10,7 @@ const AQIChart = ({ data }) => {
     xAxis: {
       label: {
         formatter: (updatedOn) => {
-          // updatedOn is in millisecond and added country wise timezone for show local time on chart.
+          // updatedOn is in millisecond and added country wise timezone to show local time on chart.
           updatedOn =
             Number(updatedOn) + new Date().getTimezoneOffset() * 60000;
 

@@ -58,7 +58,7 @@ const AQI = () => {
         <Col span={12}>
           <AQIListNew data={aqiData} />
         </Col>
-        <Col span={12}>
+        <Col span={12} style={{ backgroundColor: "#fff" }}>
           <AQIChart data={historicalData} />
         </Col>
       </Row>

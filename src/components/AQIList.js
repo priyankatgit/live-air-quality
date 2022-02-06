@@ -45,6 +45,10 @@ const AQIList = ({ data }) => {
           value: "Poor",
         },
         {
+          text: "Very Poor",
+          value: "Very Poor",
+        },
+        {
           text: "Severe",
           value: "Severe",
         },
