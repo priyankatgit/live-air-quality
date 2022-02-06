@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Tag } from "antd";
 import moment from "moment";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 
 const AQIList = ({ data, onPastAQIView }) => {
   const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
@@ -126,7 +126,7 @@ const AQIList = ({ data, onPastAQIView }) => {
       <Modal
         title={`AQI Data - ${historyModelTitle}`}
         visible={isHistoryModalVisible}
-        okButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: "none" } }}
         onCancel={() => setIsHistoryModalVisible(false)}
       >
         <Table columns={historyColumns} dataSource={historyData} size="small" />
